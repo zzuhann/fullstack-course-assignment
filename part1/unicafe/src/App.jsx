@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Statistics from "./components/Statistics";
+import Button from "./components/Button";
 
 const SCORE = {
   good: 1,
@@ -23,11 +24,11 @@ const App = () => {
       <div>
         <h1 className="title">give feedback</h1>
         <div className="button-container">
-          <button onClick={() => setGood((prev) => prev + 1)}>good</button>
-          <button onClick={() => setNeutral((prev) => prev + 1)}>
+          <Button onClick={() => setGood((prev) => prev + 1)}>good</Button>
+          <Button onClick={() => setNeutral((prev) => prev + 1)}>
             neutral
-          </button>
-          <button onClick={() => setBad((prev) => prev + 1)}>bad</button>
+          </Button>
+          <Button onClick={() => setBad((prev) => prev + 1)}>bad</Button>
         </div>
       </div>
       <Statistics
