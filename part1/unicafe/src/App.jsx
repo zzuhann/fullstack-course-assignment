@@ -19,15 +19,21 @@ const SCORE = {
  * @returns {JSX.Element}
  */
 const Statistics = (props) => {
+  const isNoFeedback = props.total === 0;
   return (
     <div>
       <h2 className="title">statistics</h2>
-      <p>good {props.good}</p>
-      <p>neutral {props.neutral}</p>
-      <p>bad {props.bad}</p>
-      <p>all {props.total}</p>
-      <p>average {props.average}</p>
-      <p>positive {props.positive}%</p>
+      {isNoFeedback && <p>No feedback given</p>}
+      {!isNoFeedback && (
+        <>
+          <p>good {props.good}</p>
+          <p>neutral {props.neutral}</p>
+          <p>bad {props.bad}</p>
+          <p>all {props.total}</p>
+          <p>average {props.average}</p>
+          <p>positive {props.positive}%</p>
+        </>
+      )}
     </div>
   );
 };
