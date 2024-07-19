@@ -7,6 +7,31 @@ const SCORE = {
   bad: -1,
 };
 
+/**
+ * @component
+ * @param {Object} props
+ * @param {number} props.good - good 的數量
+ * @param {number} props.neutral - neutral 的數量
+ * @param {number} props.bad - bad 的數量
+ * @param {number} props.total - good+neutral+bad
+ * @param {number} props.average - 分數總計/total
+ * @param {number} props.positive - good/total
+ * @returns {JSX.Element}
+ */
+const Statistics = (props) => {
+  return (
+    <div>
+      <h2 className="title">statistics</h2>
+      <p>good {props.good}</p>
+      <p>neutral {props.neutral}</p>
+      <p>bad {props.bad}</p>
+      <p>all {props.total}</p>
+      <p>average {props.average}</p>
+      <p>positive {props.positive}%</p>
+    </div>
+  );
+};
+
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0);
@@ -29,15 +54,14 @@ const App = () => {
           <button onClick={() => setBad((prev) => prev + 1)}>bad</button>
         </div>
       </div>
-      <div>
-        <h2 className="title">statistics</h2>
-        <p>good {good}</p>
-        <p>neutral {neutral}</p>
-        <p>bad {bad}</p>
-        <p>all {total}</p>
-        <p>average {average}</p>
-        <p>positive {positive}%</p>
-      </div>
+      <Statistics
+        good={good}
+        neutral={neutral}
+        bad={bad}
+        total={total}
+        average={average}
+        positive={positive}
+      />
     </>
   );
 };
