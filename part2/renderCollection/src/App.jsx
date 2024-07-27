@@ -10,6 +10,18 @@ const Part = ({ name, exercises }) => {
   );
 };
 
+const Total = ({ parts }) => {
+  let sum = 0;
+  for (let i = 0; i < parts.length; i++) {
+    sum += parts[i].exercises;
+  }
+  return (
+    <p>
+      <strong>total of {sum} exercises</strong>
+    </p>
+  );
+};
+
 const Content = ({ parts }) => {
   return (
     <div>
@@ -25,6 +37,7 @@ const Course = ({ course }) => {
     <>
       <Header courseName={course.name} />
       <Content parts={course.parts} />
+      <Total parts={course.parts} />
     </>
   );
 };
