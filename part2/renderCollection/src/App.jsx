@@ -11,13 +11,13 @@ const Part = ({ name, exercises }) => {
 };
 
 const Total = ({ parts }) => {
-  let sum = 0;
-  for (let i = 0; i < parts.length; i++) {
-    sum += parts[i].exercises;
-  }
+  const total = parts.reduce((acc, curr) => {
+    return acc + curr.exercises;
+  }, 0);
+
   return (
     <p>
-      <strong>total of {sum} exercises</strong>
+      <strong>total of {total} exercises</strong>
     </p>
   );
 };
