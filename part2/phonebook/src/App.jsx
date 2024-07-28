@@ -3,12 +3,16 @@ import personService from "./services/person";
 import Filter from "../components/Filter";
 import AddPersonForm from "../components/AddPersonForm";
 import Persons from "../components/Persons";
+import SuccessNotification from "../components/SuccessNotification";
+import ErrorNotification from "../components/ErrorNotification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleChangeFilterValue = (e) => {
     setFilter(e.target.value);
@@ -30,13 +34,27 @@ const App = () => {
     setNewNumber(e.target.value);
   };
 
+  const showSuccessMessage = (message) => {
+    setSuccessMessage(message);
+    setTimeout(() => {
+      setSuccessMessage(null);
+    }, 5000);
+  };
+
+  const showErrorMessage = (message) => {
+    setErrorMessage(message);
+    setTimeout(() => {
+      setErrorMessage(null);
+    }, 5000);
+  };
+
   const updatePerson = (personInPhoneBook) => {
     personService
       .updatePerson(personInPhoneBook.id, {
         ...personInPhoneBook,
         number: newNumber,
       })
-      .then((res) =>
+      .then((res) => {
         setPersons(
           persons.map((person) => {
             if (person.id === res.id) {
@@ -47,8 +65,14 @@ const App = () => {
             }
             return person;
           })
-        )
-      );
+        );
+        showSuccessMessage(`Updated ${res.name}`);
+      })
+      .catch(() => {
+        showErrorMessage(
+          `Information of ${personInPhoneBook.name} has already been removed from server`
+        );
+      });
   };
 
   const addPerson = (e) => {
@@ -79,6 +103,7 @@ const App = () => {
       setPersons(persons.concat(res));
       setNewName("");
       setNewNumber("");
+      showSuccessMessage(`Added ${res.name}`);
     });
   };
 
@@ -102,6 +127,8 @@ const App = () => {
   return (
     <div>
       <h2>PhoneBook</h2>
+      {successMessage && <SuccessNotification message={successMessage} />}
+      {errorMessage && <ErrorNotification message={errorMessage} />}
       <Filter
         filter={filter}
         handleChangeFilterValue={handleChangeFilterValue}
