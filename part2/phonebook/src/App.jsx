@@ -10,13 +10,20 @@ const App = () => {
 
   const addPerson = (e) => {
     e.preventDefault();
+    const isAlreadyExistPerson = !!persons.find(
+      (person) => person.name === newName
+    );
+    if (isAlreadyExistPerson) {
+      window.alert(`${newName} is already added to phoneBook`);
+      return;
+    }
     setPersons(persons.concat({ name: newName }));
     setNewName("");
   };
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h2>PhoneBook</h2>
       <form>
         <div>
           name: <input onChange={handleChangeNewName} value={newName} />
