@@ -23,7 +23,7 @@ const App = () => {
         (person) =>
           person.name.toLowerCase().includes(filter) ||
           person.number.includes(filter)
-      )
+      ) || []
     : persons;
 
   const handleChangeNewName = (e) => {
@@ -142,7 +142,7 @@ const App = () => {
         addPerson={addPerson}
       />
       <h2>Numbers</h2>
-      <Persons persons={filterPersons} deletePerson={deletePerson} />
+      <Persons persons={filterPersons || []} deletePerson={deletePerson} />
     </div>
   );
 };
